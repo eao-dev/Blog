@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
+
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.default_schema">public</property>
+
+        <mapping class="com.blog.Entities.User" />
+        <mapping class="com.blog.Entities.Post" />
+        <mapping class="com.blog.Entities.Comment" />
+
+     </session-factory>
+
+
+</hibernate-configuration>
