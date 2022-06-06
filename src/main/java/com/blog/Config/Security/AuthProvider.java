@@ -55,7 +55,7 @@ public class AuthProvider implements AuthenticationProvider {
                         authentication.getAuthorities());
             }
         }
-        throw new BadCredentialsException(loginErrorMessage); // Invalid credentials
+        throw new BadCredentialsException(loginErrorMessage);
     }
 
     @Override

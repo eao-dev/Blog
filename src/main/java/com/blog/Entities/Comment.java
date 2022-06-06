@@ -19,13 +19,16 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "post_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Post post;
 
+    @Column(name = "post_id")
+    private long postId;
+
     @Column(name = "comment")
     private String comment;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "timestamp")
+    @Column(name = "timestamp", insertable = false, updatable = false)
     private Timestamp timestamp;
 
     public long getId() {
@@ -38,6 +41,14 @@ public class Comment extends BaseEntity {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(long postId) {
+        this.postId = postId;
     }
 
     public String getComment() {

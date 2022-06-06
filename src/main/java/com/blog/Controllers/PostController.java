@@ -39,7 +39,7 @@ public class PostController extends BaseController {
     @ResponseBody
     public ResponseEntity<Void> create(@ModelAttribute("newPost") Post post) {
         postService.create(post, authCurrentUser());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("{id}")

@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class PostService extends BaseService {
 
@@ -32,17 +34,17 @@ public class PostService extends BaseService {
         jsonObject.put("post", post.getPost());
         jsonObject.put("tags", post.getTags());
         jsonObject.put("timestamp", post.getTimestamp().toString());
-        // TODO: load comments
-        /*final var comments = post.getComments();
+
+        var comments = post.getComments();
         JSONArray commentsJson = new JSONArray();
         for (final var comment : comments) {
             JSONObject commentObject = new JSONObject();
             commentObject.put("name", comment.getName());
             commentObject.put("comment", comment.getComment());
             commentObject.put("timestamp", comment.getTimestamp().toString());
-            commentsJson.put(comment);
+            commentsJson.put(commentObject);
             jsonObject.put("comments", commentsJson);
-        }*/
+        }
 
         return jsonObject.toString();
     }

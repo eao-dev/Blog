@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Repository
-@Transactional
 public abstract class DAO<T, PK> implements IDAO<T, PK> {
 
     @PersistenceContext

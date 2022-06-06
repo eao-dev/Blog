@@ -22,7 +22,7 @@
 
                 <div class="formBlock p-4">
 
-                    <form th:action="@{/post/create}" th:object="${newPost}" th:method="POST">
+                    <form th:action="@{/post/}" th:object="${newPost}" th:method="POST">
 
                         <div class="mb-3">
                             <input type="text" class="form" th:field="*{title}"

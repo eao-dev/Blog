@@ -4,6 +4,7 @@ import com.blog.Controllers.Abstract.BaseController;
 import com.blog.Entities.User;
 import com.blog.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +36,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ResponseEntity<Void> registration(@ModelAttribute("newUser") User user) {
         userService.create(user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }

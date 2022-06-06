@@ -2,11 +2,8 @@ package com.blog.DAO;
 
 import com.blog.DAO.Abstract.DAO;
 import com.blog.Entities.Post;
-import com.blog.Entities.User;
 import com.sun.istack.NotNull;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class PostDAO extends DAO<Post, Long> {
