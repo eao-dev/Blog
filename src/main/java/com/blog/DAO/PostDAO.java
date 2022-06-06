@@ -16,9 +16,15 @@ public class PostDAO extends DAO<Post, Long> {
         return super.read(Post.class, privateKey);
     }
 
+    /**
+     * Returns a post instance by user.
+     * @param privateKey user private key
+     * */
     public Post readByUser(@NotNull Long privateKey) {
-        // TODO: implement
-        return null;
+        return em.createQuery("select post from Post post where post.userId = ?1", Post.class)
+                .setParameter(1, privateKey)
+                .getResultStream().findFirst()
+                .orElse(null);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.blog.Config.Security;
 
 import com.blog.Entities.User;
-import com.blog.Services.Abstract.UserService;
+import com.blog.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -51,7 +51,7 @@ public class AuthProvider implements AuthenticationProvider {
         User user = getUserByLogin(authentication.getName());
         if (user != null) {
             if (BCrypt.checkpw(credentials.toString(), user.getPassword())) {
-                return new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), credentials,
+                return new UsernamePasswordAuthenticationToken(user, credentials,
                         authentication.getAuthorities());
             }
         }

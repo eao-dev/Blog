@@ -2,15 +2,12 @@ package com.blog.Controllers;
 
 import com.blog.Controllers.Abstract.BaseController;
 import com.blog.Entities.User;
-import com.blog.Services.Abstract.UserService;
+import com.blog.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigInteger;
 
 @Controller
 @RequestMapping("/user/")
@@ -37,7 +34,7 @@ public class UserController extends BaseController {
     @PostMapping("registration")
     @ResponseBody
     public ResponseEntity<Void> registration(@ModelAttribute("newUser") User user) {
-        userService.createNewUser(user);
+        userService.create(user);
         return ResponseEntity.ok().build();
     }
 

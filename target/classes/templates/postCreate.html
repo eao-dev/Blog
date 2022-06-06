@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -19,31 +19,27 @@
     <div class="row justify-content-center align-content-center">
         <div class="col-12 col-md-6 col-lg-5">
             <div class="wrapper">
-                <div class="btnBlock text-end">
-                    <a href="/login" class="btn btnEntr m-4">Войти</a>
-                </div>
+
                 <div class="formBlock p-4">
-                    <div class="title text-center mb-5">
-                        <h3 mb-3><b>Регистрация</b></h3>
-                    </div>
-                    <form th:action="@{/user/registration}" th:object="${newUser}" th:method="POST">
+
+                    <form th:action="@{/post/create}" th:object="${newPost}" th:method="POST">
 
                         <div class="mb-3">
-                            <input type="text" class="form" th:field="*{login}" aria-describedby="userHelp"
-                                   placeholder="Логин">
+                            <input type="text" class="form" th:field="*{title}"
+                                   placeholder="Заголовок">
                         </div>
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
 
                         <div class="mb-3">
-                            <input type="password" class="form" th:field="*{password}"
-                                   aria-describedby="passwordHelp" placeholder="Пароль">
+                            <textarea class="form" th:field="*{post}"></textarea>
                         </div>
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}"
-                             th:errors="*{password}"></div>
-                        <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+
+                        <div class="mb-3">
+                            <textarea class="form" th:field="*{tags}"></textarea>
+                        </div>
 
                         <div class="btnBlock mb-4">
-                            <button type="submit" class="btn btn-lg btnSubmit">Зарегистрироваться</button>
+                            <button type="submit" class="btn btn-lg btnSubmit">Create post</button>
                         </div>
                     </form>
                 </div>

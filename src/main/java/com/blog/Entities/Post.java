@@ -19,6 +19,9 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
@@ -29,7 +32,7 @@ public class Post extends BaseEntity {
     @Column(name = "tags")
     private String tags;
 
-    @Column(name = "timestamp")
+    @Column(name = "timestamp", insertable = false, updatable = false)
     private Timestamp timestamp;
 
     public List<Comment> getComments() {
@@ -56,8 +59,16 @@ public class Post extends BaseEntity {
         return user;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {

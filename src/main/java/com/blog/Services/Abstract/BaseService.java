@@ -1,5 +1,5 @@
 package com.blog.Services.Abstract;
 
-abstract class BaseService {
+public abstract class BaseService {
 
 }

@@ -45,6 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        /*http.authorizeRequests()
+                .antMatchers(anonymous).permitAll()
+                .antMatchers(userAccess).permitAll()
+                .antMatchers(all).permitAll()
+                .and()
+                .csrf().disable();*/
+
         http.authorizeRequests()
                 .antMatchers(anonymous).anonymous()
                 .antMatchers(userAccess).authenticated()
@@ -55,8 +62,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll()
-                .and().
-                csrf().ignoringAntMatchers(disabledCSRFURL) // Disabled CSRF
+                .and()
+                .csrf()
+                //.disable()
+                .ignoringAntMatchers(disabledCSRFURL) // Disabled CSRF
         ;
     }
 
