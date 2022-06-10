@@ -21,6 +21,18 @@ public class PostController extends BaseController {
         this.postService = postService;
     }
 
+    @GetMapping
+    public String main() {
+        return "/index";
+    }
+
+    @GetMapping("all")
+    @ResponseBody
+    public ResponseEntity<String> all() {
+        String json = postService.readAll();
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
+
     @GetMapping("create")
     public String create(Model model) {
         if (model.getAttribute("newPost") == null)
@@ -42,21 +54,21 @@ public class PostController extends BaseController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("read/{id}")
     @ResponseBody
     public ResponseEntity<String> read(@PathVariable("id") long id) {
         String json = postService.read(id);
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("update/{id}")
     @ResponseBody
     public ResponseEntity<Void> update(@PathVariable("id") long id, @ModelAttribute("newPost") Post post) {
         postService.update(id, post);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("delete/{id}")
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         postService.delete(id);

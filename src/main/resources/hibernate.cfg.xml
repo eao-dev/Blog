@@ -9,6 +9,7 @@
 
         <mapping class="com.blog.Entities.User" />
         <mapping class="com.blog.Entities.Post" />
+        <mapping class="com.blog.Entities.Category" />
         <mapping class="com.blog.Entities.Comment" />
 
      </session-factory>

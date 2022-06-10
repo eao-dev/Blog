@@ -19,6 +19,9 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
+    @ManyToMany(mappedBy = "posts",fetch = FetchType.EAGER)
+    private List<Category> categories;
+
     @Column(name = "user_id")
     private Long userId;
 
@@ -31,6 +34,35 @@ public class Post extends BaseEntity {
     private String post;
     @Column(name = "tags")
     private String tags;
+
+    @Column(name = "description")
+    private String description;
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public void addCategories(Category category){
+        categories.add(category);
+        category.getPosts().add(this);
+    }
+
+    public void removeCategories(Category category){
+        categories.add(category);
+        category.getPosts().remove(this);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Column(name = "timestamp", insertable = false, updatable = false)
     private Timestamp timestamp;
