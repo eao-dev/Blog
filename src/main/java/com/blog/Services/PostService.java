@@ -1,6 +1,6 @@
 package com.blog.Services;
 
-
+import com.blog.DAO.CategoryDAO;
 import com.blog.DAO.PostDAO;
 import com.blog.Entities.Post;
 import com.blog.Entities.User;
@@ -8,7 +8,6 @@ import com.blog.Services.Abstract.BaseService;
 import com.sun.istack.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +16,13 @@ import java.util.List;
 public class PostService extends BaseService {
 
     private final PostDAO postDAO;
+
+    private final CategoryDAO categoryDAO;
+
+    public PostService(PostDAO postDAO, CategoryDAO categoryDAO) {
+        this.postDAO = postDAO;
+        this.categoryDAO = categoryDAO;
+    }
 
     private JSONObject getJsonPost(@NotNull Post post) {
         JSONObject jsonObject = new JSONObject();
@@ -50,11 +56,6 @@ public class PostService extends BaseService {
         jsonObject.put("categories", categoriesJson);
 
         return jsonObject;
-    }
-
-    @Autowired
-    public PostService(PostDAO postDAO) {
-        this.postDAO = postDAO;
     }
 
     public String readAll() {

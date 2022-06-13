@@ -1,7 +1,6 @@
 package com.blog.Services;
 
 import com.blog.DAO.CommentDAO;
-import com.blog.DAO.PostDAO;
 import com.blog.Entities.Comment;
 import com.blog.Services.Abstract.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;

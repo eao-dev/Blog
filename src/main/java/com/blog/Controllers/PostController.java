@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -33,21 +32,7 @@ public class PostController extends BaseController {
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    @GetMapping("create")
-    public String create(Model model) {
-        if (model.getAttribute("newPost") == null)
-            model.addAttribute("newPost", new Post());
-        return "/postCreate";
-    }
-
-    @GetMapping("edit")
-    public String edit(Model model) {
-        if (model.getAttribute("newPost") == null)
-            model.addAttribute("newPost", new Post());
-        return "/postEdit";
-    }
-
-    @PostMapping
+    @PostMapping("create")
     @ResponseBody
     public ResponseEntity<Void> create(@ModelAttribute("newPost") Post post) {
         postService.create(post, authCurrentUser());
