@@ -54,5 +54,5 @@ const REST = {
     get:GET,
     post:POST,
     put:PUT,
-    delete:DELETE
+    delete:DELETE,
 }; 

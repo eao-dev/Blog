@@ -2,6 +2,8 @@ package com.blog.Entities;
 
 import com.blog.Entities.Abstract.BaseEntity;
 import lombok.NoArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -19,7 +21,7 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
-    @ManyToMany(mappedBy = "posts",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "posts", fetch = FetchType.EAGER)
     private List<Category> categories;
 
     @Column(name = "user_id")
@@ -46,12 +48,12 @@ public class Post extends BaseEntity {
         this.categories = categories;
     }
 
-    public void addCategories(Category category){
+    public void addCategories(Category category) {
         categories.add(category);
         category.getPosts().add(this);
     }
 
-    public void removeCategories(Category category){
+    public void removeCategories(Category category) {
         categories.add(category);
         category.getPosts().remove(this);
     }
@@ -125,5 +127,37 @@ public class Post extends BaseEntity {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id);
+        jsonObject.put("author", user.getLogin());
+        jsonObject.put("description", description);
+        jsonObject.put("title", title);
+        jsonObject.put("post", post);
+        jsonObject.put("tags", tags);
+        jsonObject.put("timestamp", timestamp.toString());
+
+        JSONArray commentsJson = new JSONArray();
+        for (final var comment : comments) {
+            JSONObject commentObject = new JSONObject();
+            commentObject.put("name", comment.getName());
+            commentObject.put("comment", comment.getComment());
+            commentObject.put("timestamp", comment.getTimestamp().toString());
+            commentsJson.put(commentObject);
+            jsonObject.put("comments", commentsJson);
+        }
+
+        JSONArray categoriesJson = new JSONArray();
+        for (final var category : categories) {
+            JSONObject categoryObject = new JSONObject();
+            categoryObject.put("id", category.getId());
+            categoryObject.put("name", category.getName());
+            categoriesJson.put(categoryObject);
+        }
+        jsonObject.put("categories", categoriesJson);
+
+        return jsonObject;
     }
 }

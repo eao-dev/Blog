@@ -64,8 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .csrf()
-                //.disable()
-                .ignoringAntMatchers(disabledCSRFURL) // Disabled CSRF
+                .disable()
+                //.ignoringAntMatchers(disabledCSRFURL) // Disabled CSRF
         ;
     }
 

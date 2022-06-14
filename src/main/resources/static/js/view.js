@@ -1,8 +1,11 @@
 export { VIEW };
+import {REST} from './rest.js';
 
 const VIEW = {
     loadPosts: loadPosts,
     loadPost: loadPost,
+    loadCategories: loadCategories,
+    loadCategory:loadCategory
 };
 
 function loadPosts(posts) {
@@ -26,7 +29,7 @@ function loadPosts(posts) {
         headerH1.className = 'entry-title';
         let hrefTitle = document.createElement('a');
         hrefTitle.innerHTML = postObj.title;
-        hrefTitle.href = `#${postObj.id}`;
+        hrefTitle.href = `#post_${postObj.id}`;
         headerH1.appendChild(hrefTitle);
         header.appendChild(headerH1);
 
@@ -36,12 +39,11 @@ function loadPosts(posts) {
         for (const cat of postObj.categories) {
             let spanCategory = document.createElement('span');
             spanCategory.className = 'post-category';
-            spanCategory.innerHTML = `${cat.name}`;
-            // TODO: add href to catrgories
-            /*let hrefCategory = document.createElement('a');
+            
+            let hrefCategory = document.createElement('a');
             hrefCategory.innerHTML = cat.name;
-            hrefCategory.href = `/categories/${cat.id}`;
-            spanCategory.appendChild(hrefCategory);*/
+            hrefCategory.href = `#category_${cat.id}`;
+            spanCategory.appendChild(hrefCategory);
             headerDivMeta.appendChild(spanCategory);
         }
 
@@ -75,7 +77,7 @@ function loadPosts(posts) {
 
         let readMoreDiv = document.createElement('div');
         readMoreDiv.className = 'read-more cl-effect-14';
-        readMoreDiv.innerHTML = `<a href="#${postObj.id}" class="more-link">Continue reading <span class="meta-nav">→</span></a>`;
+        readMoreDiv.innerHTML = `<a href="#post_${postObj.id}" class="more-link">Continue reading <span class="meta-nav">→</span></a>`;
         contentDiv.appendChild(readMoreDiv);
 
         // Build new post
@@ -108,7 +110,7 @@ function loadPost(postObj) {
     headerH1.className = 'entry-title';
     let hrefTitle = document.createElement('a');
     hrefTitle.innerHTML = postObj.title;
-    hrefTitle.href = `#${postObj.id}`;
+    hrefTitle.href = `#post_${postObj.id}`;
     headerH1.appendChild(hrefTitle);
     header.appendChild(headerH1);
 
@@ -118,12 +120,11 @@ function loadPost(postObj) {
     for (const cat of postObj.categories) {
         let spanCategory = document.createElement('span');
         spanCategory.className = 'post-category';
-        spanCategory.innerHTML = `${cat.name}`;
-        // TODO: add href to catrgories
-        /*let hrefCategory = document.createElement('a');
+
+        let hrefCategory = document.createElement('a');
         hrefCategory.innerHTML = cat.name;
-        hrefCategory.href = `/categories/${cat.id}`;
-        spanCategory.appendChild(hrefCategory);*/
+        hrefCategory.href = `#category_${cat.id}`;
+        spanCategory.appendChild(hrefCategory);
         headerDivMeta.appendChild(spanCategory);
     }
 
@@ -185,9 +186,7 @@ function loadPost(postObj) {
 
     // Comments form
     let form = document.createElement('form');
-    form.className = 'contact-form';
-    form.method = 'POST';
-    form.action = '/comment/create';
+    form.className = 'comment-form';
 
     let divNick = document.createElement('div');
     divNick.textContent = `Name:`;
@@ -195,10 +194,8 @@ function loadPost(postObj) {
 
     let nickInput = document.createElement('input');
     nickInput.type = 'text';
-    nickInput.name = 'name';
     form.appendChild(nickInput);
     form.appendChild(document.createElement('br'));
-
 
     let commentSource = document.createElement('div');
     commentSource.textContent = `Comment:`;
@@ -208,9 +205,19 @@ function loadPost(postObj) {
     form.appendChild(textArea);
 
     form.appendChild(document.createElement('br'));
-    let buttonSend = document.createElement('input');
-    buttonSend.type = 'submit';
-    buttonSend.value = 'Send';
+    let buttonSend = document.createElement('button');
+    buttonSend.textContent = 'Send';
+    buttonSend.onclick = ()=>{
+        let map = new Map();
+        map.set("post", postObj.id);
+        map.set("name", nickInput.value);
+        map.set("comment", textArea.value);
+        REST.post('/comment', map, (status)=>{
+            if (status!=201)
+                throw `Error send comment. HTTP status: ${status}`;
+                location.reload();
+        });
+    };
     form.appendChild(buttonSend);
 
     contentDiv.appendChild(form);
@@ -222,4 +229,29 @@ function loadPost(postObj) {
     // Add new post
     mainContent.appendChild(post);
 
+}
+
+function loadCategories(categoriesObject) {
+
+    let divCategories = document.getElementById('categoris');
+    if (divCategories==null)
+        throw "div 'categoris' not found";
+
+    divCategories.innerHTML = '';
+
+    for (const category of categoriesObject) {
+        let il = document.createElement('li');
+        let href = document.createElement('a');
+        href.href = `#category_${category.id}`;
+        href.textContent = category.name;
+        il.appendChild(href);
+        divCategories.appendChild(il);
+    }
+    
+}
+
+function loadCategory(category) {
+    if (category == null)
+        throw "Category is null";
+    loadPosts(category.posts);
 }

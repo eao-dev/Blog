@@ -1,13 +1,12 @@
 package com.blog.Services;
 
-import com.blog.DAO.CategoryDAO;
 import com.blog.DAO.PostDAO;
 import com.blog.Entities.Post;
 import com.blog.Entities.User;
 import com.blog.Services.Abstract.BaseService;
-import com.sun.istack.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,45 +16,9 @@ public class PostService extends BaseService {
 
     private final PostDAO postDAO;
 
-    private final CategoryDAO categoryDAO;
-
-    public PostService(PostDAO postDAO, CategoryDAO categoryDAO) {
+    @Autowired
+    public PostService(PostDAO postDAO) {
         this.postDAO = postDAO;
-        this.categoryDAO = categoryDAO;
-    }
-
-    private JSONObject getJsonPost(@NotNull Post post) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", post.getId());
-        jsonObject.put("author", post.getUser().getLogin());
-        jsonObject.put("description", post.getDescription());
-        jsonObject.put("title", post.getTitle());
-        jsonObject.put("post", post.getPost());
-        jsonObject.put("tags", post.getTags());
-        jsonObject.put("timestamp", post.getTimestamp().toString());
-
-        final var comments = post.getComments();
-        JSONArray commentsJson = new JSONArray();
-        for (final var comment : comments) {
-            JSONObject commentObject = new JSONObject();
-            commentObject.put("name", comment.getName());
-            commentObject.put("comment", comment.getComment());
-            commentObject.put("timestamp", comment.getTimestamp().toString());
-            commentsJson.put(commentObject);
-            jsonObject.put("comments", commentsJson);
-        }
-
-        JSONArray categoriesJson = new JSONArray();
-        final var categories = post.getCategories();
-        for (final var category : categories) {
-            JSONObject categoryObject = new JSONObject();
-            categoryObject.put("id", category.getId());
-            categoryObject.put("name", category.getName());
-            categoriesJson.put(categoryObject);
-        }
-        jsonObject.put("categories", categoriesJson);
-
-        return jsonObject;
     }
 
     public String readAll() {
@@ -63,7 +26,7 @@ public class PostService extends BaseService {
         List<Post> posts = postDAO.readAll();
         JSONArray jsonArray = new JSONArray();
         for (final var post : posts)
-            jsonArray.put(getJsonPost(post));
+            jsonArray.put(post.toJson());
 
         return jsonArray.toString();
     }
@@ -75,7 +38,7 @@ public class PostService extends BaseService {
 
     public String read(Long privateKey) {
         Post post = postDAO.read(privateKey);
-        JSONObject jsonObject = getJsonPost(post);
+        JSONObject jsonObject = post.toJson();
         return jsonObject.toString();
     }
 

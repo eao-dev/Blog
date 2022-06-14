@@ -6,6 +6,8 @@ import com.blog.Services.Abstract.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
+
 @Service
 public class CommentService extends BaseService {
 
@@ -17,6 +19,8 @@ public class CommentService extends BaseService {
     }
 
     public void create(Long postPk, String name, String commentSource) {
+        if (name.isEmpty() || commentSource.isEmpty())
+            throw new InvalidParameterException("Name or comment is empty!");
         Comment comment = new Comment();
         comment.setName(name);
         comment.setComment(commentSource);

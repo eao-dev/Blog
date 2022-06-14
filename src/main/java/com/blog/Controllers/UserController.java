@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/user/")
+@RestController
+@RequestMapping("user")
 public class UserController extends BaseController {
 
     private final UserService userService;
@@ -21,7 +21,7 @@ public class UserController extends BaseController {
         this.userService = userService;
     }
 
-    @GetMapping("registration")
+    /*@GetMapping("registration")
     public String registration(Model model) throws Exception {
         if (userService.getCount() > 0)
             throw new Exception("User already exists");
@@ -30,7 +30,7 @@ public class UserController extends BaseController {
             model.addAttribute("newUser", new User());
 
         return "/registration";
-    }
+    }*/
 
     @PostMapping("registration")
     @ResponseBody

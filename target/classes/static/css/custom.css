@@ -677,10 +677,10 @@ figure {
 
 
 /**
- * 10.0 - Contact Form
+ * 10.0 - Comment Form
  */
 
-.contact-form input {
+.comment-form input {
     border: 1px solid #aaa;
     margin-bottom: 15px;
     width: 100%;
@@ -690,7 +690,7 @@ figure {
     transition: 0.4s border-color linear;
 }
 
-.contact-form textarea {
+.comment-form textarea {
     border: 1px solid #aaa;
     margin-bottom: 15px;
     width: 100%;
