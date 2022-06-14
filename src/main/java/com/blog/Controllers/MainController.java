@@ -19,13 +19,15 @@ public class MainController {
     @GetMapping("about")
     @ResponseBody
     public ResponseEntity<String> about() {
-        return new ResponseEntity<>("...", HttpStatus.OK);
+        final String aboutHTML = "This is my personal IT blog. Here I share my solutions and interesting articles.";
+        return new ResponseEntity<>(aboutHTML, HttpStatus.OK);
     }
 
     @GetMapping("contact")
     @ResponseBody
     public ResponseEntity<String> contact() {
-        return new ResponseEntity<>("...", HttpStatus.OK);
+        final String contactHTML = "Email: mail@mail.com <br> Phone:88888888888";
+        return new ResponseEntity<>(contactHTML, HttpStatus.OK);
     }
 
 }

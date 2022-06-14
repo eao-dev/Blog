@@ -2,12 +2,12 @@ export {ROUTE};
 
 let pageMap = new Map();
 let mainPageFn = null;
-let otherFn = null;
+let prefixHandler = new Map();
 
 const ROUTE = {
     setMainPage:setMainPage,
     setPageHandler:setPageHandler,
-    setOtherHandler:setOtherHandler,
+    addPrefixHandler:addPrefixHandler,
     run:run
 };
 
@@ -19,25 +19,30 @@ function setPageHandler(page, func) {
     pageMap.set(page, func);
 }
 
-function setOtherHandler(func) {
-    otherFn = func;
+function addPrefixHandler(prefix, func) {
+    prefixHandler.set(prefix, func)
 }
 
 function routeHandle() {
 
     let hash = window.location.hash;
     if (hash != '') {
-        let page = hash.replace('#', '');
+        let hashValue = hash.substring(1, hash.length);
 
-        if (otherFn != null) {
-            if (otherFn(page))
+         // Handle page
+         for (const prefixItem of prefixHandler.entries()) {
+            const prefix = prefixItem[0];
+            if (hashValue.substring(0, prefix.length) == prefix) {
+                const postfix = hashValue.replace(prefix, '');
+                prefixItem[1](postfix); // Call function
                 return;
+            }
         }
             
         // Handle page
         for (const pageMapItem of pageMap.entries()) {
-            if (pageMapItem[0] === page) {
-                pageMapItem[1](page); // Call function
+            if (pageMapItem[0] === hashValue) {
+                pageMapItem[1]();
                 return;
             }
         }

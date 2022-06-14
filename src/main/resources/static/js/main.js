@@ -1,67 +1,64 @@
-import {REST} from './rest.js';
-import {VIEW} from './view.js';
+import {REST} from  './rest.js';
+import {VIEW} from  './view.js';
 import {ROUTE} from './route.js';
 
-function getAll() {
+function loadAll() {
     // Load all posts
     REST.get('/post/', (status, response)=> {
-        if (status == 200) {
-            const posts = JSON.parse(response);
-            VIEW.loadPosts(posts);
-            return;
-        }
-        throw `Error get posts. HTTP status: ${status}`;
+        if (status != 200)
+            throw `Error get posts. HTTP status: ${status}`;
+        VIEW.loadPosts(JSON.parse(response));      
     });
     
     // Load all categories
     REST.get('/category/', (status, response)=> {
-        if (status == 200) {
-            const posts = JSON.parse(response);
-            VIEW.loadCategories(posts);
-            return;
-        }
-        throw `Error get posts. HTTP status: ${status}`;
+        if (status != 200)
+            throw `Error get categories. HTTP status: ${status}`;
+        VIEW.loadCategories(JSON.parse(response));
     });
-
 }
 
-function loadResource(param) {
-    if (param.substring(0,9) == 'category_') {
-        let categoryId = param.replace('category_', '');
-
-        REST.get(`/category/${categoryId}`, (status, response)=> {
-            if (status == 200) {
-                const category = JSON.parse(response);
-                VIEW.loadCategory(category);
-                return;
-            }
-            throw `Error get category. HTTP status: ${status}`;
-        });
-        return true;
-    }
-
-    if (param.substring(0,5) == 'post_') {
-            let postId = param.replace('post_', '');
-
-            REST.get(`/post/${postId}/`, (status, response)=> {
-            if (status == 200) {
-                const post = JSON.parse(response);
-                VIEW.loadPost(post);
-                return;
-            }
+function loadPost(postId) {
+    REST.get(`/post/${postId}/`, (status, response)=> {
+        if (status != 200)
             throw `Error get post. HTTP status: ${status}`;
-        });
-
-        return true;
-    }
-    return false;
+        VIEW.loadPost(JSON.parse(response));
+    });
 }
 
+function loadCategory(categoryId) {
+    REST.get(`/category/${categoryId}`, (status, response)=> {
+        if (status != 200)
+            throw `Error get category. HTTP status: ${status}`;
+        VIEW.loadCategory(JSON.parse(response));
+    });
+}
+
+function getAboutMySelf() {
+    REST.get(`/about/`, (status, response)=> {
+        if (status != 200)
+            throw `Error get about. HTTP status: ${status}`;
+        VIEW.htmlShow(response);
+    });
+}
+
+function getContact() {
+    REST.get(`/contact/`, (status, response)=> {
+        if (status != 200)
+            throw `Error get contact. HTTP status: ${status}`;
+        VIEW.htmlShow(response);
+    });
+}
 
 window.onload = function() {
- 
-    ROUTE.setMainPage(getAll);
-    ROUTE.setOtherHandler(loadResource);
-    ROUTE.run();
 
+    ROUTE.setMainPage(loadAll);
+
+    ROUTE.addPrefixHandler('post_', loadPost);
+    ROUTE.addPrefixHandler('category_', loadCategory);
+
+    ROUTE.setPageHandler('about', getAboutMySelf);
+    ROUTE.setPageHandler('contact', getContact);
+
+    ROUTE.run();
 };
