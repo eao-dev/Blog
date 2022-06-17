@@ -47,4 +47,8 @@ public class CategoryService extends BaseService {
         object.put("posts", arr);
         return object.toString();
     }
+
+    public void create(Category category) {
+        categoryDAO.create(category);
+    }
 }

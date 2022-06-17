@@ -16,6 +16,11 @@ public class MainController {
         return "/index";
     }
 
+    @GetMapping("admin")
+    public String adminMain() {
+        return "/admin";
+    }
+
     @GetMapping("about")
     @ResponseBody
     public ResponseEntity<String> about() {

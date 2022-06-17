@@ -21,16 +21,15 @@ public class UserController extends BaseController {
         this.userService = userService;
     }
 
-    /*@GetMapping("registration")
+    @GetMapping("registration")
     public String registration(Model model) throws Exception {
         if (userService.getCount() > 0)
             throw new Exception("User already exists");
 
-        if (model.getAttribute("newUser") == null)
-            model.addAttribute("newUser", new User());
+        model.addAttribute("newUser", new User());
 
         return "/registration";
-    }*/
+    }
 
     @PostMapping("registration")
     @ResponseBody

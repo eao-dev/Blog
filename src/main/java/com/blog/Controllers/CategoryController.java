@@ -1,14 +1,13 @@
 package com.blog.Controllers;
 
 import com.blog.Controllers.Abstract.BaseController;
+import com.blog.Entities.Category;
 import com.blog.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("category")
@@ -32,4 +31,11 @@ public class CategoryController extends BaseController {
         final String json = categoryService.read(id);
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<Void> create(Category category) {
+        categoryService.create(category);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 }
