@@ -51,4 +51,9 @@ public class CategoryService extends BaseService {
     public void create(Category category) {
         categoryDAO.create(category);
     }
+
+    public void delete(long id) {
+        Category category = categoryDAO.read(id);
+        categoryDAO.delete(category);
+    }
 }

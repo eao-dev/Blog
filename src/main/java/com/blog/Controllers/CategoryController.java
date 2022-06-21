@@ -4,7 +4,6 @@ import com.blog.Controllers.Abstract.BaseController;
 import com.blog.Entities.Category;
 import com.blog.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +31,15 @@ public class CategoryController extends BaseController {
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<Void> create(Category category) {
         categoryService.create(category);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
+        categoryService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

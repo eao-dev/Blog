@@ -1,5 +1,6 @@
 package com.blog.Services;
 
+import com.blog.DAO.CategoryDAO;
 import com.blog.DAO.PostDAO;
 import com.blog.Entities.Post;
 import com.blog.Entities.User;
@@ -15,10 +16,12 @@ import java.util.List;
 public class PostService extends BaseService {
 
     private final PostDAO postDAO;
+    private final CategoryDAO categoryDAO;
 
     @Autowired
-    public PostService(PostDAO postDAO) {
+    public PostService(PostDAO postDAO, CategoryDAO categoryDAO) {
         this.postDAO = postDAO;
+        this.categoryDAO = categoryDAO;
     }
 
     public String readAll() {
@@ -31,8 +34,17 @@ public class PostService extends BaseService {
         return jsonArray.toString();
     }
 
-    public void create(Post post, User user) {
+    public void create(User user, String title, String description, String tags, String text, List<Long> categories) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setTags(tags);
+        post.setDescription(description);
+        post.setPost(text);
         post.setUserId(user.getId());
+
+        for (final var id : categories)
+            post.addCategories(categoryDAO.read(id));
+
         postDAO.create(post);
     }
 
@@ -42,13 +54,13 @@ public class PostService extends BaseService {
         return jsonObject.toString();
     }
 
-    public void update(Long postPk, Post newPost) {
+    /*public void update(Long postPk, Post newPost) {
         Post post = postDAO.read(postPk);
         post.setTitle(newPost.getTitle());
         post.setPost(newPost.getPost());
         post.setTags(newPost.getTags());
         postDAO.update(post);
-    }
+    }*/
 
     public void delete(long privateKey) {
         postDAO.delete(postDAO.read(privateKey));

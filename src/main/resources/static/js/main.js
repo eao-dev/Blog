@@ -3,49 +3,38 @@ import {VIEW} from  './view.js';
 import {ROUTE} from './route.js';
 
 function loadAll() {
-    // Load all posts
-    REST.get('/post/', (status, response)=> {
-        if (status != 200)
-            throw `Error get posts. HTTP status: ${status}`;
+    REST.get('/post/', (response)=> {
         VIEW.loadPosts(JSON.parse(response));      
     });
     
-    // Load all categories
-    REST.get('/category/', (status, response)=> {
-        if (status != 200)
-            throw `Error get categories. HTTP status: ${status}`;
+    REST.get('/category/', (response)=> {
         VIEW.loadCategories(JSON.parse(response));
     });
 }
 
 function loadPost(postId) {
-    REST.get(`/post/${postId}/`, (status, response)=> {
-        if (status != 200)
-            throw `Error get post. HTTP status: ${status}`;
+    REST.get(`/post/${postId}/`, (response)=> {
         VIEW.loadPost(JSON.parse(response));
+    });
+    REST.get('/category/', (response)=> {
+        VIEW.loadCategories(JSON.parse(response));
     });
 }
 
 function loadCategory(categoryId) {
-    REST.get(`/category/${categoryId}`, (status, response)=> {
-        if (status != 200)
-            throw `Error get category. HTTP status: ${status}`;
+    REST.get(`/category/${categoryId}`, (response)=> {
         VIEW.loadCategory(JSON.parse(response));
     });
 }
 
-function getAboutMySelf() {
-    REST.get(`/about/`, (status, response)=> {
-        if (status != 200)
-            throw `Error get about. HTTP status: ${status}`;
+function getAbout() {
+    REST.get(`/about/`, (response)=> {
         VIEW.htmlShow(response);
     });
 }
 
 function getContact() {
-    REST.get(`/contact/`, (status, response)=> {
-        if (status != 200)
-            throw `Error get contact. HTTP status: ${status}`;
+    REST.get(`/contact/`, (response)=> {
         VIEW.htmlShow(response);
     });
 }
@@ -57,7 +46,7 @@ window.onload = function() {
     ROUTE.addPrefixHandler('post_', loadPost);
     ROUTE.addPrefixHandler('category_', loadCategory);
 
-    ROUTE.setPageHandler('about', getAboutMySelf);
+    ROUTE.setPageHandler('about', getAbout);
     ROUTE.setPageHandler('contact', getContact);
 
     ROUTE.run();

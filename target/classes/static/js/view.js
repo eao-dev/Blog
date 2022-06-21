@@ -182,10 +182,8 @@ function loadPost(postObj) {
         map.set("post", postObj.id);
         map.set("name", nickInput.value);
         map.set("comment", textArea.value);
-        REST.post('/comment', map, (status)=>{
-            if (status!=201)
-                throw `Error send comment. HTTP status: ${status}`;
-                location.reload();
+        REST.post('/comment', map, (response)=>{
+            location.reload();
         });
     };
     form.appendChild(buttonSend);
@@ -215,7 +213,6 @@ function loadPost(postObj) {
             contentDiv.appendChild(document.createElement('hr'));
         }
     }
-
   
     //
     post.appendChild(header);
@@ -223,7 +220,6 @@ function loadPost(postObj) {
 
     // Add new post
     mainContent.appendChild(post);
-
 }
 
 function loadCategories(categoriesObject) {
@@ -256,8 +252,5 @@ function htmlShow(infoString) {
     let mainContent = document.getElementById('mainContent');
     if (mainContent == null)
         throw "div 'mainContent' not found";
-    mainContent.innerHTML = '';
-
     mainContent.innerHTML = infoString;
-
 }

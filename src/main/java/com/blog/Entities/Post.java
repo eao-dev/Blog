@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class Post extends BaseEntity {
     private User user;
 
     @ManyToMany(mappedBy = "posts", fetch = FetchType.EAGER)
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
     @Column(name = "user_id")
     private Long userId;

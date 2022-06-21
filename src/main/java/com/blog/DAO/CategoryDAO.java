@@ -19,4 +19,12 @@ public class CategoryDAO extends DAO<Category, Long> {
         return em.createQuery("select category from Category category", Category.class).getResultList();
     }
 
+    @Override
+    public void delete(Category category) {
+        em.createNativeQuery(
+                "DELETE FROM POST WHERE POST.id IN (SELECT post_id FROM postcategories where categories_id=?1)")
+                .setParameter(1, category.getId())
+                .executeUpdate();
+        super.delete(category);
+    }
 }
