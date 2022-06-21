@@ -5,7 +5,7 @@
 -- Dumped from database version 14.3
 -- Dumped by pg_dump version 14.3
 
-
+-- Started on 2022-06-21 16:35:14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 216 (class 1259 OID 16477)
+-- TOC entry 214 (class 1259 OID 16477)
 -- Name: categories; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -36,7 +36,7 @@ CREATE TABLE public.categories (
 ALTER TABLE public.categories OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 16476)
+-- TOC entry 213 (class 1259 OID 16476)
 -- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -52,7 +52,7 @@ ALTER TABLE public.categories_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3358 (class 0 OID 0)
--- Dependencies: 215
+-- Dependencies: 213
 -- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -60,7 +60,7 @@ ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 
 --
--- TOC entry 209 (class 1259 OID 16437)
+-- TOC entry 217 (class 1259 OID 16519)
 -- Name: comment; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -68,7 +68,7 @@ CREATE TABLE public.comment (
     id bigint NOT NULL,
     name character varying(255) NOT NULL,
     comment text NOT NULL,
-    "timestamp" time with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "timestamp" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     post_id bigint NOT NULL
 );
 
@@ -76,7 +76,7 @@ CREATE TABLE public.comment (
 ALTER TABLE public.comment OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 16443)
+-- TOC entry 216 (class 1259 OID 16518)
 -- Name: comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -92,7 +92,7 @@ ALTER TABLE public.comment_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3359 (class 0 OID 0)
--- Dependencies: 210
+-- Dependencies: 216
 -- Name: comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -100,7 +100,7 @@ ALTER SEQUENCE public.comment_id_seq OWNED BY public.comment.id;
 
 
 --
--- TOC entry 211 (class 1259 OID 16444)
+-- TOC entry 209 (class 1259 OID 16444)
 -- Name: post; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -118,7 +118,7 @@ CREATE TABLE public.post (
 ALTER TABLE public.post OWNER TO postgres;
 
 --
--- TOC entry 212 (class 1259 OID 16450)
+-- TOC entry 210 (class 1259 OID 16450)
 -- Name: post_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -134,7 +134,7 @@ ALTER TABLE public.post_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3360 (class 0 OID 0)
--- Dependencies: 212
+-- Dependencies: 210
 -- Name: post_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -142,7 +142,7 @@ ALTER SEQUENCE public.post_id_seq OWNED BY public.post.id;
 
 
 --
--- TOC entry 217 (class 1259 OID 16485)
+-- TOC entry 215 (class 1259 OID 16485)
 -- Name: postcategories; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -155,7 +155,7 @@ CREATE TABLE public.postcategories (
 ALTER TABLE public.postcategories OWNER TO postgres;
 
 --
--- TOC entry 213 (class 1259 OID 16451)
+-- TOC entry 211 (class 1259 OID 16451)
 -- Name: user; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -169,7 +169,7 @@ CREATE TABLE public."user" (
 ALTER TABLE public."user" OWNER TO postgres;
 
 --
--- TOC entry 214 (class 1259 OID 16454)
+-- TOC entry 212 (class 1259 OID 16454)
 -- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -185,7 +185,7 @@ ALTER TABLE public.user_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3361 (class 0 OID 0)
--- Dependencies: 214
+-- Dependencies: 212
 -- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -193,7 +193,7 @@ ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
 
 
 --
--- TOC entry 3188 (class 2604 OID 16480)
+-- TOC entry 3186 (class 2604 OID 16480)
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -201,7 +201,7 @@ ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
--- TOC entry 3184 (class 2604 OID 16455)
+-- TOC entry 3187 (class 2604 OID 16522)
 -- Name: comment id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -209,7 +209,7 @@ ALTER TABLE ONLY public.comment ALTER COLUMN id SET DEFAULT nextval('public.comm
 
 
 --
--- TOC entry 3186 (class 2604 OID 16456)
+-- TOC entry 3184 (class 2604 OID 16456)
 -- Name: post id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -217,7 +217,7 @@ ALTER TABLE ONLY public.post ALTER COLUMN id SET DEFAULT nextval('public.post_id
 
 
 --
--- TOC entry 3187 (class 2604 OID 16457)
+-- TOC entry 3185 (class 2604 OID 16457)
 -- Name: user id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -225,8 +225,8 @@ ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_
 
 
 --
--- TOC entry 3351 (class 0 OID 16477)
--- Dependencies: 216
+-- TOC entry 3349 (class 0 OID 16477)
+-- Dependencies: 214
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -237,45 +237,38 @@ COPY public.categories (id, name) FROM stdin;
 
 
 --
--- TOC entry 3344 (class 0 OID 16437)
--- Dependencies: 209
+-- TOC entry 3352 (class 0 OID 16519)
+-- Dependencies: 217
 -- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.comment (id, name, comment, "timestamp", post_id) FROM stdin;
-10	TOM	SUPER!	11:16:30.895281+03	7
-11	erwfd	dfsdsfdsfds	09:21:25.520212+03	7
-12	gfdg	gfddgf	09:21:42.251764+03	7
-13	qweqwewq	dfdfdsfds	09:24:27.30103+03	7
-14	gf	dgf	09:26:37.207898+03	7
 \.
 
 
 --
--- TOC entry 3346 (class 0 OID 16444)
--- Dependencies: 211
+-- TOC entry 3344 (class 0 OID 16444)
+-- Dependencies: 209
 -- Data for Name: post; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.post (id, title, post, "timestamp", tags, user_id, description) FROM stdin;
-7	Site hacking	qweqwqewqewqew	2022-06-10 10:39:58.264703+03	qwe, zaza	6	short descr
 \.
 
 
 --
--- TOC entry 3352 (class 0 OID 16485)
--- Dependencies: 217
+-- TOC entry 3350 (class 0 OID 16485)
+-- Dependencies: 215
 -- Data for Name: postcategories; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.postcategories (post_id, categories_id) FROM stdin;
-7	1
 \.
 
 
 --
--- TOC entry 3348 (class 0 OID 16451)
--- Dependencies: 213
+-- TOC entry 3346 (class 0 OID 16451)
+-- Dependencies: 211
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -286,7 +279,7 @@ COPY public."user" (id, login, password) FROM stdin;
 
 --
 -- TOC entry 3362 (class 0 OID 0)
--- Dependencies: 215
+-- Dependencies: 213
 -- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -295,25 +288,25 @@ SELECT pg_catalog.setval('public.categories_id_seq', 34, true);
 
 --
 -- TOC entry 3363 (class 0 OID 0)
--- Dependencies: 210
+-- Dependencies: 216
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.comment_id_seq', 14, true);
+SELECT pg_catalog.setval('public.comment_id_seq', 1, true);
 
 
 --
 -- TOC entry 3364 (class 0 OID 0)
--- Dependencies: 212
+-- Dependencies: 210
 -- Name: post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.post_id_seq', 46, true);
+SELECT pg_catalog.setval('public.post_id_seq', 47, true);
 
 
 --
 -- TOC entry 3365 (class 0 OID 0)
--- Dependencies: 214
+-- Dependencies: 212
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -321,7 +314,7 @@ SELECT pg_catalog.setval('public.user_id_seq', 6, true);
 
 
 --
--- TOC entry 3200 (class 2606 OID 16489)
+-- TOC entry 3198 (class 2606 OID 16489)
 -- Name: postcategories PostCategories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -330,7 +323,7 @@ ALTER TABLE ONLY public.postcategories
 
 
 --
--- TOC entry 3198 (class 2606 OID 16484)
+-- TOC entry 3196 (class 2606 OID 16484)
 -- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -339,7 +332,7 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- TOC entry 3190 (class 2606 OID 16459)
+-- TOC entry 3200 (class 2606 OID 16527)
 -- Name: comment comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -348,7 +341,7 @@ ALTER TABLE ONLY public.comment
 
 
 --
--- TOC entry 3194 (class 2606 OID 16461)
+-- TOC entry 3192 (class 2606 OID 16461)
 -- Name: user loginUnique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -357,7 +350,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3192 (class 2606 OID 16463)
+-- TOC entry 3190 (class 2606 OID 16463)
 -- Name: post post_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -366,7 +359,7 @@ ALTER TABLE ONLY public.post
 
 
 --
--- TOC entry 3196 (class 2606 OID 16465)
+-- TOC entry 3194 (class 2606 OID 16465)
 -- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -375,7 +368,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3204 (class 2606 OID 16495)
+-- TOC entry 3203 (class 2606 OID 16495)
 -- Name: postcategories categories_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -384,7 +377,7 @@ ALTER TABLE ONLY public.postcategories
 
 
 --
--- TOC entry 3201 (class 2606 OID 16466)
+-- TOC entry 3204 (class 2606 OID 16528)
 -- Name: comment postFk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -393,7 +386,7 @@ ALTER TABLE ONLY public.comment
 
 
 --
--- TOC entry 3203 (class 2606 OID 16490)
+-- TOC entry 3202 (class 2606 OID 16490)
 -- Name: postcategories post_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -402,7 +395,7 @@ ALTER TABLE ONLY public.postcategories
 
 
 --
--- TOC entry 3202 (class 2606 OID 16471)
+-- TOC entry 3201 (class 2606 OID 16471)
 -- Name: post userFk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -410,6 +403,7 @@ ALTER TABLE ONLY public.post
     ADD CONSTRAINT "userFk" FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
+-- Completed on 2022-06-21 16:35:14
 
 --
 -- PostgreSQL database dump complete

@@ -26,21 +26,17 @@
                     <form th:action="@{/user/registration}" th:object="${newUser}" th:method="POST">
 
                         <div class="mb-3">
-                            <input type="text" class="form" th:field="*{login}" aria-describedby="userHelp"
-                                   placeholder="Login">
+                            <input type="text" class="form-control" th:field="*{login}" placeholder="Login">
                         </div>
-<!--                        <div class="alert alert-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>-->
 
                         <div class="mb-3">
-                            <input type="password" class="form" th:field="*{password}"
-                                   aria-describedby="passwordHelp" placeholder="Password">
+                            <input type="password" class="form-control" th:field="*{password}" placeholder="Password">
                         </div>
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}"
                              th:errors="*{password}"></div>
-<!--                        <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>-->
 
                         <div class="btnBlock mb-4">
-                            <button type="submit" class="btn btn-lg btnSubmit">Register</button>
+                            <button type="submit" class="btn btn-primary">Registration</button>
                         </div>
                     </form>
                 </div>

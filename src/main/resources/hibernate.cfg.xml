@@ -7,12 +7,11 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.default_schema">public</property>
 
-        <mapping class="com.blog.Entities.User" />
-        <mapping class="com.blog.Entities.Post" />
-        <mapping class="com.blog.Entities.Category" />
-        <mapping class="com.blog.Entities.Comment" />
+        <mapping class="eao.dev.Entities.User" />
+        <mapping class="eao.dev.Entities.Post" />
+        <mapping class="eao.dev.Entities.Category" />
+        <mapping class="eao.dev.Entities.Comment" />
 
      </session-factory>
-
 
 </hibernate-configuration>
