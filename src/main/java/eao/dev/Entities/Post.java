@@ -161,4 +161,25 @@ public class Post extends BaseEntity {
 
         return jsonObject;
     }
+
+    public JSONObject toJsonShort() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id);
+        //jsonObject.put("author", user.getLogin());
+        jsonObject.put("description", description);
+        jsonObject.put("title", title);
+        jsonObject.put("timestamp", timestamp.toString());
+        jsonObject.put("commentsCount", (comments==null)?0:comments.size());
+
+        JSONArray categoriesJson = new JSONArray();
+        for (final var category : categories) {
+            JSONObject categoryObject = new JSONObject();
+            categoryObject.put("id", category.getId());
+            categoryObject.put("name", category.getName());
+            categoriesJson.put(categoryObject);
+        }
+        jsonObject.put("categories", categoriesJson);
+
+        return jsonObject;
+    }
 }

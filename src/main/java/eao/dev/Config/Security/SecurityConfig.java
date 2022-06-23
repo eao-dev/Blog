@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${userAccess}")
+    @Value("${user}")
     private String[] userAccess;
 
     @Value("${anonymous}")
@@ -21,12 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${all}")
     private String[] all;
-
-    @Value("${disabledCSRFURL}")
-    private String[] disabledCSRFURL;
-
-    @Value("${defaultURL}")
-    private String defaultURL;
 
     @Autowired
     private AuthProvider authProvider;
@@ -36,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authProvider); // Add custom auth provider
+        // Add custom auth provider
+        auth.authenticationProvider(authProvider);
     }
 
     /**
@@ -50,15 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(userAccess).authenticated()
                 .antMatchers(all).permitAll()
                 .anyRequest().authenticated().and().formLogin()
-                .defaultSuccessUrl(defaultURL)
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll()
                 .and()
                 .csrf()
-                //.disable()
-                .ignoringAntMatchers(disabledCSRFURL) // Disabled CSRF
         ;
     }
 

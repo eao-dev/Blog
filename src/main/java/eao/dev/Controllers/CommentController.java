@@ -21,11 +21,7 @@ public class CommentController {
     public ResponseEntity<Void> create(@RequestParam("post") Long postPk,
                                        @RequestParam("name") String name,
                                        @RequestParam("comment") String comment) {
-        try {
-            commentService.create(postPk, name, comment);
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        commentService.create(postPk, name, comment);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

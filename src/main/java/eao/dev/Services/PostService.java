@@ -29,7 +29,7 @@ public class PostService extends BaseService {
         List<Post> posts = postDAO.readAll();
         JSONArray jsonArray = new JSONArray();
         for (final var post : posts)
-            jsonArray.put(post.toJson());
+            jsonArray.put(post.toJsonShort());
 
         return jsonArray.toString();
     }

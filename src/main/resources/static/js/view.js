@@ -52,18 +52,9 @@ function loadPosts(posts) {
         spanDate.innerHTML = `<time class="entry-date" datetime="${postObj.timestamp}">${dateTime}</time>`;
         headerDivMeta.appendChild(spanDate);
 
-        let spanAuthor = document.createElement('span');
-        spanAuthor.className = 'post-author';
-        spanAuthor.innerHTML = postObj.author;
-        headerDivMeta.appendChild(spanAuthor);
-
-        let nComments = 0;
-        if (postObj.comments != null)
-            nComments = postObj.comments.length;
-
         let spanComments = document.createElement('span');
         spanComments.className = 'comments-link';
-        spanComments.innerHTML = `${nComments} comments`;
+        spanComments.innerHTML = `${postObj.commentsCount} comments`;
         headerDivMeta.appendChild(spanComments);
         header.appendChild(headerDivMeta);
 

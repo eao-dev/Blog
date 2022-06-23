@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Objects;
+import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:dbConfig.properties")
+@PropertySource("classpath:pom_properties.properties")
 public class DBConfig {
 
     @Value("${db.driver}")
@@ -30,6 +31,17 @@ public class DBConfig {
     @Value("${db.pass}")
     private String dbPass;
 
+    @Value("${db.schema}")
+    private String dbSchema;
+
+    @Value("${db.url}")
+    private String dbUrl;
+
+    @Value("${show_sql}")
+    private String showSQL;
+
+    protected static String hibernateConfigFile = "hibernate.cfg.xml";
+
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
         final BasicDataSource dataSource = new BasicDataSource();
@@ -42,9 +54,15 @@ public class DBConfig {
 
     @Bean(name = "sessionFactory")
     public LocalSessionFactoryBean getSessionFactory() {
+
+        Properties hibernateProp = new Properties();
+        hibernateProp.setProperty("hibernate.default_schema", dbSchema);
+        hibernateProp.setProperty("hibernate.show_sql", showSQL);
+
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
-        factoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
+        factoryBean.setHibernateProperties(hibernateProp);
+        factoryBean.setConfigLocation(new ClassPathResource(hibernateConfigFile));
         return factoryBean;
     }
 

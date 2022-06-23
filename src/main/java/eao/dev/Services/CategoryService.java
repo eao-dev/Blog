@@ -43,7 +43,7 @@ public class CategoryService extends BaseService {
         object.put("name", category.getName());
         JSONArray arr = new JSONArray();
         for (final var post : category.getPosts())
-            arr.put(post.toJson());
+            arr.put(post.toJsonShort());
         object.put("posts", arr);
         return object.toString();
     }
