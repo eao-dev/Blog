@@ -24,4 +24,11 @@ public class CommentController {
         commentService.create(postPk, name, comment);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @GetMapping
+    public ResponseEntity<String> readAll() {
+        String json = commentService.readAll();
+        return new ResponseEntity<>(json, HttpStatus.OK);
+
+    }
 }

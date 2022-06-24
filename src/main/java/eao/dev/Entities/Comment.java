@@ -2,6 +2,7 @@ package eao.dev.Entities;
 
 import eao.dev.Entities.Abstract.BaseEntity;
 import lombok.NoArgsConstructor;
+import org.json.JSONObject;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -73,5 +74,13 @@ public class Comment extends BaseEntity {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public JSONObject toJson() {
+        JSONObject commentObject = new JSONObject();
+        commentObject.put("name", name);
+        commentObject.put("comment", comment);
+        commentObject.put("timestamp", timestamp.toString());
+        return commentObject;
     }
 }

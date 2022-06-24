@@ -16,10 +16,6 @@ function loadPost(postId) {
     REST.get(`/post/${postId}/`, (response)=> {
         VIEW.loadPost(JSON.parse(response));
     });
-    // todo: fix-it => this is this is a temporary solution
-    REST.get('/category/', (response)=> {
-        VIEW.loadCategories(JSON.parse(response));
-    });
 }
 
 function loadCategory(categoryId) {

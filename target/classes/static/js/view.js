@@ -12,8 +12,6 @@ const VIEW = {
 function loadPosts(posts) {
 
     let mainContent = document.getElementById('mainContent');
-    if (mainContent == null)
-        throw "div 'mainContent' not found";
     mainContent.innerHTML = '';
 
     for (const postObj of posts) {
@@ -83,12 +81,12 @@ function loadPosts(posts) {
 function loadPost(postObj) {
 
     let mainContent = document.getElementById('mainContent');
-    if (mainContent == null)
-        throw "div 'mainContent' not found";
     mainContent.innerHTML = '';
+    loadCategories(postObj.categories, true);
 
     let post = document.createElement('article');
     post.className = 'post';
+    //post.innerHTML = '';
 
     // Create header
     let header = document.createElement('header');
@@ -174,7 +172,11 @@ function loadPost(postObj) {
         map.set("name", nickInput.value);
         map.set("comment", textArea.value);
         REST.post('/comment', map, (response)=>{
-            location.reload();
+            REST.get('/comment', (comments)=>{
+                nickInput.value = '';
+                textArea.value = '';
+                loadComments(contentDiv, JSON.parse(comments));
+            });
         });
     };
     form.appendChild(buttonSend);
@@ -182,28 +184,7 @@ function loadPost(postObj) {
     contentDiv.appendChild(document.createElement('hr'));
 
     // Comments
-    if (postObj.comments != null) {
-        for (const comment of postObj.comments) {
-            let divNick = document.createElement('div');
-            divNick.className = 'name';
-            divNick.textContent = `${comment.name}`;
-            contentDiv.appendChild(divNick);
-
-            let divCommentTime = document.createElement('div');
-            divCommentTime.className = 'commentTime';
-            let timeComment = comment.timestamp.substring(0, 16);
-            divCommentTime.innerHTML = `${timeComment}`;
-            contentDiv.appendChild(divCommentTime);
-
-            contentDiv.appendChild(document.createElement('br'));
-
-            let divCommentSource = document.createElement('p');
-            divCommentSource.innerHTML = `${comment.comment}`;
-            contentDiv.appendChild(divCommentSource);
-
-            contentDiv.appendChild(document.createElement('hr'));
-        }
-    }
+    loadComments(contentDiv, postObj.comments);
   
     //
     post.appendChild(header);
@@ -213,11 +194,44 @@ function loadPost(postObj) {
     mainContent.appendChild(post);
 }
 
-function loadCategories(categoriesObject) {
+function loadComments(contentDiv, comments) {
+
+    let commentDiv = document.getElementById('comments');
+    if (commentDiv == null) {
+        commentDiv = document.createElement('div');
+        commentDiv.id = 'comments';
+    } else
+        commentDiv.innerHTML = ''; // Clear
+
+    if (comments != null) {
+        for (const comment of comments) {
+            let divNick = document.createElement('div');
+            divNick.className = 'name';
+            divNick.textContent = `${comment.name}`;
+            commentDiv.appendChild(divNick);
+
+            let divCommentTime = document.createElement('div');
+            divCommentTime.className = 'commentTime';
+            let timeComment = comment.timestamp.substring(0, 16);
+            divCommentTime.innerHTML = `${timeComment}`;
+            commentDiv.appendChild(divCommentTime);
+
+            commentDiv.appendChild(document.createElement('br'));
+
+            let divCommentSource = document.createElement('p');
+            divCommentSource.innerHTML = `${comment.comment}`;
+            commentDiv.appendChild(divCommentSource);
+            commentDiv.appendChild(document.createElement('hr'));
+        }
+    }
+    contentDiv.appendChild(commentDiv);
+}
+
+function loadCategories(categoriesObject, check = false) {
 
     let divCategories = document.getElementById('categories');
-    if (divCategories==null)
-        throw "div 'categories' not found";
+    if (check && divCategories.innerHTML == '')
+        return;
 
     divCategories.innerHTML = '';
 
@@ -233,15 +247,10 @@ function loadCategories(categoriesObject) {
 }
 
 function loadCategory(category) {
-    if (category == null)
-        throw "Category is null";
     loadPosts(category.posts);
 }
 
 function htmlShow(infoString) {
-
     let mainContent = document.getElementById('mainContent');
-    if (mainContent == null)
-        throw "div 'mainContent' not found";
     mainContent.innerHTML = infoString;
 }

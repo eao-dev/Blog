@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @NoArgsConstructor
@@ -141,12 +143,9 @@ public class Post extends BaseEntity {
         jsonObject.put("timestamp", timestamp.toString());
 
         JSONArray commentsJson = new JSONArray();
+        comments.sort(Collections.reverseOrder(Comparator.comparing(Comment::getTimestamp)));
         for (final var comment : comments) {
-            JSONObject commentObject = new JSONObject();
-            commentObject.put("name", comment.getName());
-            commentObject.put("comment", comment.getComment());
-            commentObject.put("timestamp", comment.getTimestamp().toString());
-            commentsJson.put(commentObject);
+            commentsJson.put(comment.toJson());
             jsonObject.put("comments", commentsJson);
         }
 

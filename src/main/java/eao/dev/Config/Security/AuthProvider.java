@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 /**
- * Custom authorization provider.
+ * Custom authentication provider.
  **/
 @Component
 public class AuthProvider implements AuthenticationProvider {
