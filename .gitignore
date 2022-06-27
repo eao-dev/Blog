@@ -1,2 +1,7 @@
-target/
+*/target/** 
 pom_properties.properties
+*.class
+.idea
+*.iws
+*.iml
+*.ipr
